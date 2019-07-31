@@ -20,16 +20,18 @@ use std::fmt;
 use std::io;
 
 // PositiveNonzeroInteger is a struct defined below the tests.
-fn read_and_validate(b: &mut io::BufRead) -> Result<PositiveNonzeroInteger, ???> {
+#[allow(bare_trait_objects)]
+fn read_and_validate(b: &mut io::BufRead) -> Result<PositiveNonzeroInteger, Box<dyn error::Error>> {
     let mut line = String::new();
-    b.read_line(&mut line);
-    let num: i64 = line.trim().parse();
-    let answer = PositiveNonzeroInteger::new(num);
-    answer
+    b.read_line(&mut line)?; // W
+    let num: i64 = line.trim().parse()?; // T
+    let answer = PositiveNonzeroInteger::new(num)?; // F
+    Ok(answer) // ?
 }
 
 // This is a test helper function that turns a &str into a BufReader.
-fn test_with_str(s: &str) -> Result<PositiveNonzeroInteger, Box<error::Error>> {
+#[allow(bare_trait_objects)]
+fn test_with_str(s: &str) -> Result<PositiveNonzeroInteger, Box<dyn error::Error>> {
     let mut b = io::BufReader::new(s.as_bytes());
     read_and_validate(&mut b)
 }
@@ -41,18 +43,21 @@ fn test_success() {
 }
 
 #[test]
+// #[ignore]
 fn test_not_num() {
     let x = test_with_str("eleven billion\n");
     assert!(x.is_err());
 }
 
 #[test]
+// #[ignore]
 fn test_non_positive() {
     let x = test_with_str("-40\n");
     assert!(x.is_err());
 }
 
 #[test]
+// #[ignore]
 fn test_ioerror() {
     struct Broken;
     impl io::Read for Broken {
@@ -94,8 +99,10 @@ fn test_positive_nonzero_integer_creation() {
 enum CreationError {
     Negative,
     Zero,
+    Broken,
 }
 
+#[allow(bare_trait_objects)]
 impl fmt::Display for CreationError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str((self as &error::Error).description())
@@ -107,87 +114,20 @@ impl error::Error for CreationError {
         match *self {
             CreationError::Negative => "Negative",
             CreationError::Zero => "Zero",
+            CreationError::Broken => "uh-oh!",
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // First hint: To figure out what type should go where the ??? is, take a look
 // at the test helper function `test_with_str`, since it returns whatever
 // `read_and_validate` returns and`test_with_str` has its signature fully
 // specified.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Next hint: There are three places in `read_and_validate` that we call a
 // function that returns a `Result` (that is, the functions might fail).
 // Apply the `?` operator on those calls so that we return immediately from
 // `read_and_validate` if those function calls fail.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Another hint: under the hood, the `?` operator calls `From::from`
 // on the error value to convert it to a boxed trait object, a Box<error::Error>,
@@ -197,49 +137,11 @@ impl error::Error for CreationError {
 // Check out this section of the book:
 // https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html#a-shortcut-for-propagating-errors-the--operator
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Another another hint: Note that because the `?` operator returns
 // the *unwrapped* value in the `Ok` case, if we want to return a `Result` from
 // `read_and_validate` for *its* success case, we'll have to rewrap a value
 // that we got from the return value of a `?`ed call in an `Ok`-- this will
 // look like `Ok(something)`.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Another another another hint: `Result`s must be "used", that is, you'll
 // get a warning if you don't handle a `Result` that you get in your

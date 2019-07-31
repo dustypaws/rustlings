@@ -102,6 +102,7 @@ fn watch(exercises: &[Exercise]) -> notify::Result<()> {
             Ok(event) => match event {
                 DebouncedEvent::Create(b) | DebouncedEvent::Chmod(b) | DebouncedEvent::Write(b) => {
                     if b.extension() == Some(OsStr::new("rs")) && b.exists() {
+                        std::process::Command::new("clear").spawn().unwrap();
                         println!("----------**********----------\n");
                         let filepath = b.as_path().canonicalize().unwrap();
                         let exercise = exercises

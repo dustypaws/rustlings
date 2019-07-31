@@ -1,0 +1,76 @@
+ Current Filetype: rust
+Available Linters: ['cargo', 'rls', 'rustc']
+  Enabled Linters: ['rls']
+ Suggested Fixers: 
+  'remove_trailing_lines' - Remove all blank lines at the end of a file.
+  'rustfmt' - Fix Rust files with Rustfmt.
+  'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
+ Linter Variables:
+
+let g:ale_rust_rls_config = {'rust': {'clippy_preference': 'on', 'build_on_save': 1, 'all_targets': 1}}
+let g:ale_rust_rls_executable = '/home/sebastian/.cargo/bin/rls'
+let g:ale_rust_rls_toolchain = 'nightly-2019-07-19-x86_64-unknown-linux-gnu'
+ Global Variables:
+
+let g:ale_cache_executable_check_failures = v:null
+let g:ale_change_sign_column_color = v:null
+let g:ale_command_wrapper = ''
+let g:ale_completion_delay = 100
+let g:ale_completion_enabled = 0
+let g:ale_completion_max_suggestions = 50
+let g:ale_echo_cursor = 1
+let g:ale_echo_msg_error_str = 'Error'
+let g:ale_echo_msg_format = '%code: %%s'
+let g:ale_echo_msg_info_str = 'Info'
+let g:ale_echo_msg_warning_str = 'Warning'
+let g:ale_enabled = 1
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {'vue': ['prettier'], 'rust': ['rustfmt'], 'javascript': ['prettier'], '*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_history_enabled = 1
+let g:ale_history_log_output = 1
+let g:ale_keep_list_window_open = v:null
+let g:ale_lint_delay = 200
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_filetype_changed = 1
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_linter_aliases = {'vue': ['css', 'javascript'], 'svelte': ['css', 'javascript']}
+let g:ale_linters = {'svelte': ['prettier'], 'php': ['php'], 'rust': ['rls'], 'javascript': ['prettier']}
+let g:ale_linters_explicit = 1
+let g:ale_list_vertical = v:null
+let g:ale_list_window_size = v:null
+let g:ale_loclist_msg_format = v:null
+let g:ale_lsp_root = {}
+let g:ale_max_buffer_history_size = 20
+let g:ale_max_signs = v:null
+let g:ale_maximum_file_size = v:null
+let g:ale_open_list = v:null
+let g:ale_pattern_options = v:null
+let g:ale_pattern_options_enabled = v:null
+let g:ale_set_balloons = 0
+let g:ale_set_highlights = 1
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
+let g:ale_set_signs = 1
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '✘'
+let g:ale_sign_info = v:null
+let g:ale_sign_offset = v:null
+let g:ale_sign_style_error = v:null
+let g:ale_sign_style_warning = v:null
+let g:ale_sign_warning = '⚠'
+let g:ale_statusline_format = v:null
+let g:ale_type_map = {}
+let g:ale_use_global_executables = v:null
+let g:ale_virtualtext_cursor = 1
+let g:ale_warn_about_trailing_blank_lines = 1
+let g:ale_warn_about_trailing_whitespace = 1
+  Command History:
+
+(executable check - success) /home/sebastian/.cargo/bin/rls
+(started) ['/bin/sh', '-c', '''/home/sebastian/.cargo/bin/rls'' +''nightly-2019-07-19-x86_64-unknown-linux-gnu''']
+(finished - exit code 0) ['/bin/sh', '-c', '''rustfmt'' < ''/tmp/nvim9iAxkB/5/errorsn.rs''']
+(finished - exit code 0) ['/bin/sh', '-c', '''rustfmt'' < ''/tmp/nvim9iAxkB/7/errorsn.rs''']
+(finished - exit code 0) ['/bin/sh', '-c', '''rustfmt'' < ''/tmp/nvim9iAxkB/9/errorsn.rs''']
+(finished - exit code 0) ['/bin/sh', '-c', '''rustfmt'' < ''/tmp/nvim9iAxkB/11/errorsn.rs''']
